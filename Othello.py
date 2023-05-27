@@ -220,7 +220,7 @@ class Othello:
             return True
 
 #player class
-class player():
+class Player():
     #defines player name and color
     def __init__(self, player_name, color):
         self._player_name = player_name
