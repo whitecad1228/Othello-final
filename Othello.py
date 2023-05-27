@@ -189,7 +189,6 @@ class Othello:
         ind_player = Player(player_name,color)
         self._player_dict.update({color : ind_player})
         return
-
     #returns the winner
     def return_winner(self):
         black_total = 0
