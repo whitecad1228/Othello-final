@@ -186,7 +186,7 @@ class Othello:
 
     #creates a new player and saves it in the player dict
     def create_player(self, player_name, color):
-        ind_player = player(player_name,color)
+        ind_player = Player(player_name,color)
         self._player_dict.update({color : ind_player})
         return
 
