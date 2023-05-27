@@ -6,16 +6,16 @@
 # game using all the functions created in the assignment, much better experience to play it that way.
 class Othello:
     def __init__(self):
-        self._game_board = [["*", "*", "*", "*", "*", "*", "*", "*", "*", "*"],
-                            ["*", ".", ".", ".", ".", ".", ".", ".", ".", "*"],
-                            ["*", ".", ".", ".", ".", ".", ".", ".", ".", "*"],
-                            ["*", ".", ".", ".", ".", ".", ".", ".", ".", "*"],
-                            ["*", ".", ".", ".", "O", "X", ".", ".", ".", "*"],
-                            ["*", ".", ".", ".", "X", "O", ".", ".", ".", "*"],
-                            ["*", ".", ".", ".", ".", ".", ".", ".", ".", "*"],
-                            ["*", ".", ".", ".", ".", ".", ".", ".", ".", "*"],
-                            ["*", ".", ".", ".", ".", ".", ".", ".", ".", "*"],
-                            ["*", "*", "*", "*", "*", "*", "*", "*", "*", "*"]]
+        self._board = [["*", "*", "*", "*", "*", "*", "*", "*", "*", "*"],
+                        ["*", ".", ".", ".", ".", ".", ".", ".", ".", "*"],
+                        ["*", ".", ".", ".", ".", ".", ".", ".", ".", "*"],
+                        ["*", ".", ".", ".", ".", ".", ".", ".", ".", "*"],
+                        ["*", ".", ".", ".", "O", "X", ".", ".", ".", "*"],
+                        ["*", ".", ".", ".", "X", "O", ".", ".", ".", "*"],
+                        ["*", ".", ".", ".", ".", ".", ".", ".", ".", "*"],
+                        ["*", ".", ".", ".", ".", ".", ".", ".", ".", "*"],
+                        ["*", ".", ".", ".", ".", ".", ".", ".", ".", "*"],
+                        ["*", "*", "*", "*", "*", "*", "*", "*", "*", "*"]]
         self._piece_dict = {
             "white": "O",
             "black": "X",
@@ -80,7 +80,6 @@ class Othello:
         #cords are in a tuple
         #postion is in x,y
         available_spaces = self.return_available_positions(color)
-        print(available_spaces)
         good_move = False
         for space in available_spaces:
             if space == position:
@@ -88,8 +87,8 @@ class Othello:
         if good_move:
             self.make_move(color, position)
         else:
-            print(position, " not a valid space")
-            print(available_spaces)
+            #print(position, " not a valid space")
+            print("Here are the valid moves:", available_spaces)
             return "invalid move"
         if self.check_win():
             self.return_winner()
@@ -110,9 +109,9 @@ class Othello:
     #returns a list of tuples holding the postion of each color peice on the board
     def get_peices(self, marker):
         pieces = []
-        for y in range(0,len(self._game_board)):
-            for x in range(0, len(self._game_board[y])):
-                if self._game_board[y][x] == marker:
+        for y in range(0,len(self._board)):
+            for x in range(0, len(self._board[y])):
+                if self._board[y][x] == marker:
                     pieces.append((x,y))
         return pieces
 
@@ -125,19 +124,19 @@ class Othello:
             for columns in range(-1, 2):
                 inc = 1
                 if columns != 0 or rows != 0:
-                    while self._game_board[y + (rows*inc)][x + (columns*inc)] != "*":
-                        if self._game_board[y + (rows * inc)][x + (columns * inc)] == marker and self._game_board[y + (rows * (inc+1))][x + (columns * (inc+1))] == ".":
+                    while self._board[y + (rows*inc)][x + (columns*inc)] != "*":
+                        if self._board[y + (rows * inc)][x + (columns * inc)] == marker and self._board[y + (rows * (inc+1))][x + (columns * (inc+1))] == ".":
                             possible_postions.append((x + (columns * (inc+1)), y + (rows * (inc+1))))
-                        if self._game_board[y + (rows * (inc))][x + (columns * (inc))] == ".":
+                        if self._board[y + (rows * (inc))][x + (columns * (inc))] == ".":
                             break
                         inc += 1
         return possible_postions
     #places a peice of a color at position
     def make_move(self,color,position):
         print()
-        self._game_board[position[1]][position[0]] = self._piece_dict.get(color)
+        self._board[position[1]][position[0]] = self._piece_dict.get(color)
         self.flip_pieces(position[0],position[1], color)
-        return self._game_board
+        return self._board
 
     #flips all the required pieces of piece x,y
     def flip_pieces(self,x,y,color):
@@ -148,22 +147,22 @@ class Othello:
                 inc = 1
                 if columns != 0 or rows != 0:
                     flip_row = False
-                    while self._game_board[y + (rows * inc)][x + (columns * inc)] != "*":
-                        if self._game_board[y + (rows * inc)][x + (columns * inc)] == self._piece_dict.get(color):
+                    while self._board[y + (rows * inc)][x + (columns * inc)] != "*":
+                        if self._board[y + (rows * inc)][x + (columns * inc)] == self._piece_dict.get(color):
                             flip_row = True
                             break
-                        if self._game_board[y + (rows * inc)][x + (columns * inc)] == ".":
+                        if self._board[y + (rows * inc)][x + (columns * inc)] == ".":
                             break
                         inc += 1
                     if flip_row:
                         inc = 1
-                        while self._game_board[y + (rows * inc)][x + (columns * inc)] != self._piece_dict.get(color):
-                            self._game_board[y + (rows * inc)][x + (columns * inc)] = self._piece_dict.get(color)
+                        while self._board[y + (rows * inc)][x + (columns * inc)] != self._piece_dict.get(color):
+                            self._board[y + (rows * inc)][x + (columns * inc)] = self._piece_dict.get(color)
                             inc += 1
         return
     #prints the board
     def print_board(self):
-        for rows in self._game_board:
+        for rows in self._board:
             for column in rows:
                 print(column, end=" ")
             print()
@@ -172,8 +171,8 @@ class Othello:
     def show_available_positions(self,color):
         available_positions = self.return_available_positions(color)
         temp_board = []
-        for y in range(0, len(self._game_board)):
-            temp_board.append(self._game_board[y].copy())
+        for y in range(0, len(self._board)):
+            temp_board.append(self._board[y].copy())
             for x in range(0, len(temp_board[y])):
                 for position in available_positions:
                     if (x,y) == position:
@@ -193,11 +192,11 @@ class Othello:
     def return_winner(self):
         black_total = 0
         white_total = 0
-        for y in range(0, len(self._game_board)):
-            for x in range(0, len(self._game_board[y])):
-                if self._game_board[y][x] == self._piece_dict.get("black"):
+        for y in range(0, len(self._board)):
+            for x in range(0, len(self._board[y])):
+                if self._board[y][x] == self._piece_dict.get("black"):
                     black_total += 1
-                if self._game_board[y][x] == self._piece_dict.get("white"):
+                if self._board[y][x] == self._piece_dict.get("white"):
                     white_total += 1
         if black_total > white_total:
             return "Winner is black player: " + self._player_dict.get("black").return_name() \
@@ -232,13 +231,15 @@ class Player():
         return self._player_name
 def main():
     game = Othello()
-    game.play_full_game()
+    #game.play_full_game()
 
-    # game.print_board()
+    game.print_board()
+    game.create_player("Helen", "white")
+    game.create_player("Leo", "black")
     # game.show_available_positions("black")
     # print(game.return_available_positions("black"))
-    # game.play_game("black",(5,6))
-    # game.print_board()
+    game.play_game("black",(6,9))
+    game.print_board()
     #
     # game.show_available_positions("white")
     # print(game.return_available_positions("white"))
