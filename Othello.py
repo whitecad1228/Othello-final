@@ -6,15 +6,15 @@
 # game using all the functions created in the assignment, much better experience to play it that way.
 class Othello:
     def __init__(self):
-        self._board = [["*", "*", "*", "*", "*", "*", "*", "*", "*", "*"],
-                        ["*", ".", ".", ".", ".", ".", ".", ".", ".", "*"],
-                        ["*", ".", ".", ".", ".", ".", ".", ".", ".", "*"],
-                        ["*", ".", ".", ".", ".", ".", ".", ".", ".", "*"],
-                        ["*", ".", ".", ".", "O", "X", ".", ".", ".", "*"],
-                        ["*", ".", ".", ".", "X", "O", ".", ".", ".", "*"],
-                        ["*", ".", ".", ".", ".", ".", ".", ".", ".", "*"],
-                        ["*", ".", ".", ".", ".", ".", ".", ".", ".", "*"],
-                        ["*", ".", ".", ".", ".", ".", ".", ".", ".", "*"],
+        self._board = [["*", "1", "2", "3", "4", "5", "6", "7", "8", "*"],
+                        ["1", ".", ".", ".", ".", ".", ".", ".", ".", "*"],
+                        ["2", ".", ".", ".", ".", ".", ".", ".", ".", "*"],
+                        ["3", ".", ".", ".", ".", ".", ".", ".", ".", "*"],
+                        ["4", ".", ".", ".", "O", "X", ".", ".", ".", "*"],
+                        ["5", ".", ".", ".", "X", "O", ".", ".", ".", "*"],
+                        ["6", ".", ".", ".", ".", ".", ".", ".", ".", "*"],
+                        ["7", ".", ".", ".", ".", ".", ".", ".", ".", "*"],
+                        ["8", ".", ".", ".", ".", ".", ".", ".", ".", "*"],
                         ["*", "*", "*", "*", "*", "*", "*", "*", "*", "*"]]
         self._piece_dict = {
             "white": "O",
@@ -231,15 +231,15 @@ class Player():
         return self._player_name
 def main():
     game = Othello()
-    #game.play_full_game()
+    game.play_full_game()
 
-    game.print_board()
-    game.create_player("Helen", "white")
-    game.create_player("Leo", "black")
+    # game.print_board()
+    # game.create_player("Helen", "white")
+    # game.create_player("Leo", "black")
     # game.show_available_positions("black")
     # print(game.return_available_positions("black"))
-    game.play_game("black",(6,9))
-    game.print_board()
+    # game.play_game("black",(6,9))
+    # game.print_board()
     #
     # game.show_available_positions("white")
     # print(game.return_available_positions("white"))
